@@ -16,7 +16,7 @@ class GameTest(unittest.TestCase):
     def tearDown(self):
         mock_input.reset_mock()
 
-    @patch('game.Player')
+    @patch('project.game.Player')
     def test_add_user(self, mock_player):
         mock_player.return_value = 'player1'
 
@@ -46,7 +46,7 @@ class GameTest(unittest.TestCase):
         self.assertTrue('it is test2s turn' in mock_output.getvalue())
 
     # @patch('sys.stdout', new_callable=io.StringIO)
-    @patch('game.Round.throw')
+    @patch('project.game.Round.throw')
     def test_play_round_throw(self, mock_round):
         mock_input.side_effect = ['throw', 'exit']
         self.game.add_player('test1')
@@ -55,7 +55,7 @@ class GameTest(unittest.TestCase):
 
         mock_round.assert_called()
 
-    @patch('game.Round.select_dice')
+    @patch('project.game.Round.select_dice')
     def test_play_round_select_dices(self, mock_round):
         mock_input.side_effect = ['select dices', '1 2 3', 'exit']
         self.game.add_player('test1')
@@ -65,8 +65,8 @@ class GameTest(unittest.TestCase):
         mock_round.assert_called_with(['1', '2', '3'])
         mock_input.assert_any_call('Which dices do you want to save?')
 
-    @patch('game.vars')
-    @patch('game.Round.write_score')
+    @patch('project.game.vars')
+    @patch('project.game.Round.write_score')
     def test_play_round_write_score(self, mock_round, mock_scoreblock_vars):
         mock_input.side_effect = ['write score', 'key1', 'exit']
         mock_scoreblock_vars.return_value = {'key1': 'test', 'key2': 'test2'}
@@ -86,8 +86,8 @@ class GameTest(unittest.TestCase):
 
         mock_output.assert_called_with('End of the round')
     
-    @patch('game.Game.play_round')
-    def test_play_game(self):
+    @patch('project.game.Game.play_round')
+    def __test_play_game(self):
         mock_input.side_effect = ['1']
         
         self.game.play_game()

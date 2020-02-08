@@ -1,0 +1,12 @@
+[run]
+branch = True
+source = project/*
+omit =
+    tests/*
+    venv/*
+
+[report]
+fail_under = 90
+
+[html]
+directory = cov_rep/
