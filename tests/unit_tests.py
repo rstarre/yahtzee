@@ -2,9 +2,7 @@ import unittest
 import io
 from unittest.mock import patch, Mock
 
-from game import Game
-
-from test_data import TestData
+from project.game import Game
 
 mock_input = Mock()
 
