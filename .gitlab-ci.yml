@@ -1,19 +1,19 @@
 image: "python:3.8-alpine"
 
-               include:
-                 - template: Code-Quality.gitlab-ci.yml
+include:
+  - template: Code-Quality.gitlab-ci.yml
 
-               stages:
-                 - test
+stages:
+  - test
 
-               before_script:
-                 - pip install -r requirements.txt
+before_script:
+  - pip install -r requirements.txt
 
-               test:
-                 stage: test
-                 script:
-                   - nose2 -v
-                 artifacts:
-                   when: always
-                   reports:
-                     junit: nose2-junit.xml
+test:
+  stage: test
+  script:
+    - nose2 -v
+  artifacts:
+    when: always
+    reports:
+      junit: nose2-junit.xml
