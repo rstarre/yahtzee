@@ -82,8 +82,16 @@ class ScoreBlock:
     def total_score(self):
         scores = vars(self)
         total_score = 0
-        for score in scores.values():
-            total_score += int(score)
+
+        for key, score in scores.items():
+            try:
+                total_score += int(score)
+            except TypeError as e:
+                cont = input(f'There is no score for {key}, skip score? (y/n)')
+                if cont.lower() == 'y':
+                    pass
+                else:
+                    raise
         return total_score
 
     @staticmethod
