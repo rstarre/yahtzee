@@ -167,15 +167,9 @@ class Round:
             self.score.append(self.dices.pop(int(index)))
 
     def write_score(self, player, score):
-        score_mapping = {
-            'ones': player.scoreblock.ones,
-            'twos': player.scoreblock.twos,
-            'threes': player.scoreblock.threes,
-            'fours': player.scoreblock.fours,
-            'fives': player.scoreblock.fives,
-            'sixs': player.scoreblock.sixs,
-        }
-        score_mapping[score](self.score)
+        #TODO
+        pass
+
 
 
 class Dice:
