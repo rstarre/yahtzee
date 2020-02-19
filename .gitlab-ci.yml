@@ -16,9 +16,7 @@ flake8:
 mypy:
   stage: static analysis
   script:
-    - python -m mypy project/ \
-       --disallow-untyped-defs \
-       --no-warn-no-return
+    - python -m mypy project/ --disallow-untyped-defs --no-warn-no-return
 
 test:
   stage: test
