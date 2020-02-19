@@ -6,9 +6,8 @@ from project.game import Round, Player
 
 
 class TestRound(unittest.TestCase):
-
     def setUp(self):
-        with patch('project.game.Dice', return_value=TestData.TestDice()) as mock_dice:
+        with patch("project.game.Dice", return_value=TestData.TestDice()) as mock_dice:
             self.round = Round(6)
 
         self.round.nr_dices = 6
@@ -28,7 +27,7 @@ class TestRound(unittest.TestCase):
         for dice in self.round.dices:
             self.assertTrue(dice.roll_called)
 
-    @patch('builtins.print')
+    @patch("builtins.print")
     def test_throw_no_more(self, mock_print):
         self.round.throws = 0
 
@@ -37,23 +36,11 @@ class TestRound(unittest.TestCase):
         mock_print.assert_called_with("No more throws allowed.")
 
     def test_select_dice(self):
-        self.round.select_dice('2')
+        self.round.select_dice("2")
 
         self.assertEqual(1, len(self.round.score))
         self.assertEqual(5, len(self.round.dices))
 
     def test_write_score(self):
-        #TODO
+        # TODO
         pass
-
-
-
-
-
-
-
-
-
-
-
-

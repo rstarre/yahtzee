@@ -5,9 +5,9 @@ from project.game import ScoreBlock
 
 mock_input = Mock()
 
-@patch('builtins.input', create=True, new=mock_input)
-class TestScoreBlock(unittest.TestCase):
 
+@patch("builtins.input", create=True, new=mock_input)
+class TestScoreBlock(unittest.TestCase):
     def setUp(self):
         self.scoreblock = ScoreBlock()
 
@@ -20,19 +20,19 @@ class TestScoreBlock(unittest.TestCase):
         with self.assertRaises(Exception) as e:
             self.scoreblock._verify_score(2, 6)
 
-        self.assertEqual('invalid score', str(e.exception))
+        self.assertEqual("invalid score", str(e.exception))
 
     def test_verify_score_to_high(self):
         with self.assertRaises(Exception) as e:
             self.scoreblock._verify_score(7, 1)
 
-        self.assertEqual('invalid score', str(e.exception))
+        self.assertEqual("invalid score", str(e.exception))
 
     def test_verify_score_invalid(self):
         with self.assertRaises(Exception) as e:
             self.scoreblock._verify_score(11, 3)
 
-        self.assertEqual('invalid score', str(e.exception))
+        self.assertEqual("invalid score", str(e.exception))
 
     def test_total_score(self):
         self.scoreblock.ones = 3
@@ -47,7 +47,7 @@ class TestScoreBlock(unittest.TestCase):
         self.assertEqual(39, total_score)
 
     def test_total_score_missing(self):
-        mock_input.side_effect = ['y']
+        mock_input.side_effect = ["y"]
         self.scoreblock.twos = 6
         self.scoreblock.threes = 6
         self.scoreblock.fours = 8
@@ -59,7 +59,7 @@ class TestScoreBlock(unittest.TestCase):
         self.assertEqual(36, total_score)
 
     def test_total_score_missing_error(self):
-        mock_input.side_effect = ['n']
+        mock_input.side_effect = ["n"]
         self.scoreblock.twos = 6
         self.scoreblock.threes = 6
         self.scoreblock.fours = 8

@@ -4,8 +4,8 @@ from unittest.mock import patch
 
 from project.game import Dice
 
-class TestDice(unittest.TestCase):
 
+class TestDice(unittest.TestCase):
     def setUp(self):
         self.dice = Dice()
 
