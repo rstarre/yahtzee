@@ -1,19 +1,19 @@
 import random
 
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 
 class Game:
-    def __init__(self):
+    def __init__(self) -> None:
         self.players: List[Player] = []
         self.nr_dices: int = 6
         self.round: Round = Round(self.nr_dices)
         self.rounds: int = len(ScoreBlock.nr_of_boxes())
 
-    def add_player(self, name: str):
+    def add_player(self, name: str) -> None:
         self.players.append(Player(name))
 
-    def play_round(self):
+    def play_round(self) -> None:
         for player in self.players:
             print(f"it is {player.name}s turn")
             while True:
@@ -22,7 +22,8 @@ class Game:
                 )
                 if "throw" == action.lower():
                     self.round.throw()
-                    [print(dice.value) for dice in self.round.dices]
+                    for dice in self.round.dices:
+                        print(dice.value)
                 elif "select dices" == action.lower():
                     index: List[str] = input(
                         "Which dices do you want to save?"
@@ -42,7 +43,7 @@ class Game:
         else:
             print("End of the round")
 
-    def play_game(self):
+    def play_game(self) -> None:
         while True:
             nr_of_players: str = input(
                 "Welcome to Yathzee!! \n With how many people will you play this game?"
@@ -66,19 +67,19 @@ class Game:
 
 
 class Player:
-    def __init__(self, name: str):
+    def __init__(self, name: str) -> None:
         self.name: str = name
         self.scoreblock: ScoreBlock = ScoreBlock()
 
 
 class ScoreBlock:
-    def __init__(self):
-        self._ones: int = None
-        self._twos: int = None
-        self._threes: int = None
-        self._fours: int = None
-        self._fives: int = None
-        self._sixs: int = None
+    def __init__(self) -> None:
+        self._ones: Optional[int] = None
+        self._twos: Optional[int] = None
+        self._threes: Optional[int] = None
+        self._fours: Optional[int] = None
+        self._fives: Optional[int] = None
+        self._sixs: Optional[int] = None
 
     def _verify_score(self, score: int, number: int) -> int:
         if number <= score <= (6 * number) and score % number == 0:
@@ -104,90 +105,97 @@ class ScoreBlock:
         return total_score
 
     @staticmethod
-    def nr_of_boxes():
+    def nr_of_boxes() -> Dict[str, str]:
         return vars(ScoreBlock())
 
     @property
     def ones(self) -> int:
+        assert self._ones is not None
         return self._ones
 
     @ones.setter
-    def ones(self, score: int):
+    def ones(self, score: int) -> None:
         self._ones = self._verify_score(score, 1)
 
     @property
     def twos(self) -> int:
+        assert self._twos is not None
         return self._twos
 
     @twos.setter
-    def twos(self, score: int):
+    def twos(self, score: int) -> None:
         self._twos = self._verify_score(score, 2)
 
     @property
     def threes(self) -> int:
+        assert self._threes is not None
         return self._threes
 
     @threes.setter
-    def threes(self, score: int):
+    def threes(self, score: int) -> None:
         self._threes = self._verify_score(score, 3)
 
     @property
     def fours(self) -> int:
+        assert self._fours is not None
         return self._fours
 
     @fours.setter
-    def fours(self, score: int):
+    def fours(self, score: int) -> None:
         self._fours = self._verify_score(score, 4)
 
     @property
     def fives(self) -> int:
+        assert self._fives is not None
         return self._fives
 
     @fives.setter
-    def fives(self, score: int):
+    def fives(self, score: int) -> None:
         self._fives = self._verify_score(score, 5)
 
     @property
     def sixs(self) -> int:
+        assert self._sixs is not None
         return self._sixs
 
     @sixs.setter
-    def sixs(self, score: int):
+    def sixs(self, score: int) -> None:
         self._sixs = self._verify_score(score, 6)
 
 
 class Round:
-    def __init__(self, nr_dices: int):
+    def __init__(self, nr_dices: int) -> None:
         self.score: List[Dice] = []
         self.throws: int = 3
         self.nr_dices: int = nr_dices
         self.dices: List[Dice] = [Dice() for _ in range(nr_dices)]
 
-    def throw(self):
+    def throw(self) -> None:
         if self.throws > 0:
-            [dice.roll() for dice in self.dices]
+            for dice in self.dices:
+                dice.roll()
             self.throws -= 1
         else:
             print("No more throws allowed.")
 
-    def select_dice(self, indexes: List[str]):
+    def select_dice(self, indexes: List[str]) -> None:
         index: str
         for index in indexes:
             self.score.append(self.dices.pop(int(index)))
 
-    def write_score(self, player, score):
+    def write_score(self, player: Player, score: str) -> None:
         # TODO
         pass
 
 
 class Dice:
-    def __init__(self):
-        self.value: int = None
+    def __init__(self) -> None:
+        self.value: Optional[int] = None
 
-    def roll(self):
+    def roll(self) -> None:
         self.value = random.randint(1, 6)
 
-    def reset(self):
+    def reset(self) -> None:
         self.value = None
 
 
