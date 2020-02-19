@@ -16,7 +16,7 @@ flake8:
 mypy:
   stage: static analysis
   script:
-    -python -m mypy project/
+    - python -m mypy project/
 
 test:
   stage: test
